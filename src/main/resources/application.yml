@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+# MongoDB connection
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://resume_admin:<Resume%4012345>@userresumedata.ywcdkde.mongodb.net/?appName=UserResumeData
+
+# Logging config
+logging:
+  level:
+    root: INFO
+    com.resumeai.analyzer: DEBUG
+    org.springframework: INFO
+
