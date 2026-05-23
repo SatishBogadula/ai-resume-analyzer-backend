@@ -4,7 +4,9 @@ out/
 !**/src/test/**/out/
 .kotlin
 .idea/
+target/
 SpringAIProject.iml
+userservice.iml
 
 
 ### Eclipse ###

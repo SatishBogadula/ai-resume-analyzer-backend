@@ -4,33 +4,51 @@
 
 package com.resumeai.analyzer.service;
 
-
+import com.resumeai.analyzer.dto.UserResponse;
 import com.resumeai.analyzer.model.User;
 import com.resumeai.analyzer.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public User registerUser(User user) {
+    public UserResponse registerUser(User user) {
 
-        userRepository.findByEmail(user.getEmail())
-                .ifPresent(exsitingUser -> {
-                    throw new RuntimeException("User already present with email" + user.getEmail());
-                });
+        userRepository
+                .findByEmail(user.getEmail())
+                .ifPresent(
+                        exsitingUser -> {
+                            throw new RuntimeException("User already present with email " + user.getEmail());
+                        });
 
-        return userRepository.save(user);
+        user.setPassWordHash(passwordEncoder.encode(user.getPassWordHash()));
+        User savedUser = userRepository.save(user);
+        return mapToResponse(savedUser);
     }
 
-    public User getUserByEmail(String email) {
+    public UserResponse getUserByEmail(String email) {
 
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user =
+                userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+
+        return mapToResponse(user);
+    }
+
+    private UserResponse mapToResponse(User user) {
+        UserResponse response = new UserResponse();
+        response.setId(user.getId());
+        response.setName(user.getName());
+        response.setEmail(user.getEmail());
+        response.setRole(user.getRole());
+        return response;
     }
 }
