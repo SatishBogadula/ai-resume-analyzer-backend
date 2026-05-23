@@ -5,6 +5,6 @@
 package com.resumeai.analyzer.enums;
 
 public enum RoleEnum {
-    USER,
-    ADMIN
+  USER,
+  ADMIN
 }

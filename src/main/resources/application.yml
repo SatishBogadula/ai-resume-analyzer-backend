@@ -5,7 +5,8 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://resume_admin:Resume%4012345@userresumedata.ywcdkde.mongodb.net/resume_analyzer?retryWrites=true&w=majority&appName=UserResumeData
+      uri: ${MongoDB_URI}
+      auto-index-creation: true
 
 # Logging config
 logging:
