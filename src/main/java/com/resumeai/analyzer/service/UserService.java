@@ -5,6 +5,8 @@
 package com.resumeai.analyzer.service;
 
 import com.resumeai.analyzer.dto.UserResponse;
+import com.resumeai.analyzer.exception.UserAlreadyExistsException;
+import com.resumeai.analyzer.exception.UserNotFoundException;
 import com.resumeai.analyzer.model.User;
 import com.resumeai.analyzer.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,7 +29,8 @@ public class UserService {
                 .findByEmail(user.getEmail())
                 .ifPresent(
                         exsitingUser -> {
-                            throw new RuntimeException("User already present with email " + user.getEmail());
+                            throw new UserAlreadyExistsException(
+                                    "User already present with email " + user.getEmail());
                         });
 
         user.setPassWordHash(passwordEncoder.encode(user.getPassWordHash()));
@@ -38,7 +41,9 @@ public class UserService {
     public UserResponse getUserByEmail(String email) {
 
         User user =
-                userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+                userRepository
+                        .findByEmail(email)
+                        .orElseThrow(() -> new UserNotFoundException("User not found"));
 
         return mapToResponse(user);
     }
