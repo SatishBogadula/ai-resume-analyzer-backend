@@ -18,5 +18,5 @@ public class LoginRequest {
 
     @NotBlank(message = "Password is required")
     @Size(min = 6, max = 20, message = "Password must be 6–20 characters long")
-    private String password;
+    private String passwordHash;
 }

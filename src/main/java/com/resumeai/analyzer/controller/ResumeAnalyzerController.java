@@ -4,7 +4,9 @@
 
 package com.resumeai.analyzer.controller;
 
+import com.resumeai.analyzer.dto.request.LoginRequest;
 import com.resumeai.analyzer.dto.request.RegisterRequest;
+import com.resumeai.analyzer.dto.response.LoginResponse;
 import com.resumeai.analyzer.dto.response.UserDataResponse;
 import com.resumeai.analyzer.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,8 @@ public class ResumeAnalyzerController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDataResponse> registerUser(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<UserDataResponse> registerUser(
+            @RequestBody RegisterRequest registerRequest) {
 
         return ResponseEntity.ok(userService.registerUser(registerRequest));
     }
@@ -30,5 +33,11 @@ public class ResumeAnalyzerController {
     public ResponseEntity<UserDataResponse> getUserByEmail(@PathVariable String email) {
 
         return ResponseEntity.ok(userService.getUserByEmail(email));
+    }
+
+    @PostMapping("/auth/login")
+    public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
+
+        return ResponseEntity.ok(userService.loginUser(loginRequest));
     }
 }
