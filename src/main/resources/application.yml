@@ -8,10 +8,13 @@ spring:
       uri: ${MONGODB_URI}
       auto-index-creation: true
 
+# JWT configuration
+jwt:
+  secret: ${JWT_SECRET}
+
 # Logging config
 logging:
   level:
     root: INFO
     com.resumeai.analyzer: DEBUG
     org.springframework: INFO
-

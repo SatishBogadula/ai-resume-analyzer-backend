@@ -15,6 +15,7 @@ import com.resumeai.analyzer.exception.UserNotFoundException;
 import com.resumeai.analyzer.mapper.UserMapper;
 import com.resumeai.analyzer.model.User;
 import com.resumeai.analyzer.repository.UserRepository;
+import com.resumeai.analyzer.security.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +24,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(
+            UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     public UserDataResponse registerUser(RegisterRequest request) {
@@ -71,7 +75,7 @@ public class UserService {
         return LoginResponse.builder()
                 .email(user.getEmail())
                 .role(user.getRole())
-                .token("temp token")
+                .token(jwtService.generateToken(user.getEmail()))
                 .build();
     }
 
