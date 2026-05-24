@@ -4,7 +4,7 @@
 
 package com.resumeai.analyzer.exception;
 
-import com.resumeai.analyzer.dto.ErrorResponse;
+import com.resumeai.analyzer.dto.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

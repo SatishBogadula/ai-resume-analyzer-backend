@@ -2,7 +2,7 @@
  * Copyright (c) 2026 Satish Bogadula. All rights reserved.
  */
 
-package com.resumeai.analyzer.dto;
+package com.resumeai.analyzer.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -4,10 +4,7 @@
 
 package com.resumeai.analyzer.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.resumeai.analyzer.enums.RoleEnum;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,15 +30,11 @@ public class User {
     private String name;
 
     @Indexed(unique = true)
-    @NotBlank
-    @Email
     private String email;
 
-    @NotBlank
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String passWordHash;
+    private String passwordHash;
 
-    private RoleEnum role;
+    private RoleEnum role = RoleEnum.USER;
 
     @CreatedDate
     private LocalDateTime createdAt;
