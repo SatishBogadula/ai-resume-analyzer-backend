@@ -4,17 +4,18 @@
 
 package com.resumeai.analyzer.dto.response;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
-import java.time.LocalDateTime;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class ErrorResponse {
-    private int status;
-    private String message;
-    private LocalDateTime timeStamp;
+  private int status;
+  private String message;
+  private LocalDateTime timeStamp;
 }

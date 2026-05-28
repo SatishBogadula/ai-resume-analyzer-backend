@@ -18,6 +18,7 @@
     <properties>
         <java.version>17</java.version>
         <log-back.version>7.4</log-back.version>
+        <pitest.version>1.2.2</pitest.version>
     </properties>
 
     <dependencies>
@@ -76,6 +77,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-junit5-plugin</artifactId>
+            <version>${pitest.version}</version>
+        </dependency>
 
         <!-- Logging -->
         <dependency>
@@ -119,6 +125,20 @@
                     </execution>
                 </executions>
 
+            </plugin>
+
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.15.2</version>
+                <configuration>
+                    <mutationThreshold>90</mutationThreshold>
+                    <coverageThreshold>90</coverageThreshold>
+                    <threads>4</threads>
+                    <outputFormats>
+                        <param>HTML</param>
+                    </outputFormats>
+                </configuration>
             </plugin>
 
         </plugins>
